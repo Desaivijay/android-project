@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="android_project.MainPage">
     <StackLayout>
-        <ListView x:Name="MoviesListView"
-                  ItemsSource="{Binding Movies}"
-                  SelectionMode="Single"
-                   ItemSelected="OnMovieSelected">
+        <ListView x:Name="MoviesListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Title}" />
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Title}" FontAttributes="Bold" />
+                            <Label Text="{Binding ReleaseDate}" FontSize="Small" />
+                            <Label Text="{Binding Overview}" />
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

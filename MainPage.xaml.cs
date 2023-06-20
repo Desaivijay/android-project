@@ -2,31 +2,26 @@
 
 public partial class MainPage : ContentPage
 {
-
-    public List<Movie> movies { get; set; }
+    private TmdbApiClient _tmdbApiClient;
+   
 
     public MainPage()
     {
         InitializeComponent();
 
-        Movies = new List<Movie>
-            {
-                new Movie { Title = "Movie 1", Director = "Director 1", Year = 2021 },
-                new Movie { Title = "Movie 2", Director = "Director 2", Year = 2022 },
-                // Add more movies as needed
-            };
-
-        BindingContext = this;
+        _tmdbApiClient = new TmdbApiClient();
     }
-
-    private async void OnMovieSelected(object sender, SelectedItemChangedEventArgs e)
+    protected override async void OnAppearing()
     {
-        if (e.SelectedItem is Movie selectedMovie)
-        {
-            await Navigation.PushAsync(new MovieDetailPage(selectedMovie));
-            MoviesListView.SelectedItem = null;
-        }
+        base.OnAppearing();
+
+        // Fetch popular movies
+        MovieResponse movieResponse = await _tmdbApiClient.GetPopularMoviesAsync();
+
+        // Update UI with movie data
+        MoviesListView.ItemsSource = movieResponse.Results;
     }
+    
 }
 
 	
