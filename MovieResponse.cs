@@ -22,6 +22,7 @@ namespace android_project
         public string Title { get; set; }
         public string ReleaseDate { get; set; }
         public string Overview { get; set; }
+        public string ImageUrl { get; set; }
         // Add additional properties as needed
     }
 }
