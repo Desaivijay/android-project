@@ -1,11 +1,23 @@
-﻿namespace android_project;
+﻿using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Xaml;
+using Firebase.Database;
+using Firebase;
+using Google.Apis.Auth;
+using Google.Apis.Auth.OAuth2;
 
-public partial class App : Application
+namespace android_project
 {
-	public App()
-	{
-		InitializeComponent();
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
 
-		MainPage = new AppShell();
-	}
+            MainPage = new NavigationPage(new LoginPage());
+        }
+
+       
+        
+    }
 }

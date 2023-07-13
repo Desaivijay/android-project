@@ -12,6 +12,7 @@ namespace android_project
     {
         private TmdbApiClient _tmdbApiClient;
         private List<Movie> _moviesList;
+        private List<Movie> _filteredMoviesList;
 
         public MainPage()
         {
@@ -19,6 +20,7 @@ namespace android_project
 
             _tmdbApiClient = new TmdbApiClient();
             _moviesList = new List<Movie>();
+            _filteredMoviesList = new List<Movie>();
         }
 
         protected override async void OnAppearing()
@@ -31,6 +33,7 @@ namespace android_project
             // Update UI with movie data
             _moviesList = movieResponse.Results;
             MoviesListView.ItemsSource = _moviesList;
+            _filteredMoviesList = _moviesList;
         }
 
         private async void OnMovieSelected(object sender, SelectedItemChangedEventArgs e)
@@ -51,12 +54,13 @@ namespace android_project
             {
                 // If the search term is empty, display all movies
                 MoviesListView.ItemsSource = _moviesList;
+                _filteredMoviesList = _moviesList;
             }
             else
             {
                 // Filter movies based on the search term
-                var filteredMovies = _moviesList.Where(m => m.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
-                MoviesListView.ItemsSource = filteredMovies;
+                _filteredMoviesList = _moviesList.Where(m => m.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
+                MoviesListView.ItemsSource = _filteredMoviesList;
             }
         }
 
